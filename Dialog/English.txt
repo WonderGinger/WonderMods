@@ -5,13 +5,20 @@ Wonder_WonderSandbox_Sandbox_postcard=
 3. Any% rooms are {#d95c04}not{#} the focus                    {n}
 4. Check description for more strat info           {n}
 
-# ================================== Hotkeys Submenu ==================================
-WM_HOTKEYS=             Hotkeys
-WM_HOTKEYS_DESCRIPTION= Binding multiple keys to a control will cause those keys to act as a keycombo
+# ================================== Mod Menu        ==================================
+WM_WONDER_MODS=					    Wonder Mods
+WM_ENABLE_STREAKS=				    Streaks
 
-# ================================== Hotkey Config ==================================
-WM_KEY_STREAK_INCREMENT=           Increment streak
-WM_KEY_STREAK_RESET=               Reset streak
-WM_STREAK_COUNTER_RESET=           Reset streak
-WM_STREAK_COUNTER=                 Streak
-WM_WONDER_MODS=					   Wonder Mods
+# ================================== Streaks Submenu ==================================
+WM_STREAK_COUNTER_RESET=            Reset streak
+WM_STREAK_COUNTER=                  Streak
+
+# ================================== Hotkeys Submenu ==================================
+WM_HOTKEYS=            			    Hotkeys
+
+# ================================== Hotkey Config   ==================================
+WM_KEY_STREAK_INCREMENT=            Increment streak
+WM_KEY_STREAK_DECREMENT=		    Decrement streak
+WM_KEY_STREAK_RESET=                Reset streak
+
+

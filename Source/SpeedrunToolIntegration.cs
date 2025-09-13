@@ -1,58 +1,37 @@
 ﻿using MonoMod.ModInterop;
 using System;
 using Celeste.Mod.SpeedrunTool.ModInterop;
-using Celeste.Mod.SpeedrunTool.RoomTimer;
 using System.Collections.Generic;
+using Celeste.Mod.SpeedrunTool.RoomTimer;
 
-namespace Celeste.Mod.WonderMods.Integration
+namespace Celeste.Mod.WonderMods.Integration;
+
+
+[ModImportName("SpeedrunTool.RoomTimer")]
+public static class RoomTimerIntegration
 {
-    public static class SpeedrunToolIntegration
+    public static Func<bool> RoomTimerIsCompleted;
+    public static Func<long> GetRoomTime;
+    internal static void Load()
     {
-        private static object SaveLoadActionInstance = null;
+        typeof(RoomTimerIntegration).ModInterop();
+    }
+    internal static void Unload() { }
+}
 
-        internal static void Load() 
-        {
-            SaveLoadActionInstance = SpeedrunToolInterop.SaveLoadExports.RegisterSaveLoadAction(OnSaveState, OnLoadState, OnClearState, OnBeforeSaveState, OnBeforeLoadState, null);
-        }
+[ModImportName("SpeedrunTool.SaveLoad")]
+public static class SaveLoadIntegration
+{
+    public static Func<Action<Dictionary<Type, Dictionary<string, object>>, Level>,
+        Action<Dictionary<Type, Dictionary<string, object>>, Level>, Action,
+        Action<Level>, Action<Level>, Action, object> RegisterSaveLoadAction;
 
-        private static void OnBeforeLoadState(Level level)
-        {
-            WonderModsModule.WonderLog("Before load state hook");
-            Streaks.StreakManager.OnBeforeLoadState();
-        }
+    internal static void Load()
+    {
+        typeof(SaveLoadIntegration).ModInterop();
+    }
 
-        private static void OnBeforeSaveState(Level level)
-        {
-            WonderModsModule.WonderLog("Before save state hook");
-            Streaks.StreakManager.OnBeforeSaveState();
-        }
-
-        private static void OnClearState()
-        {
-            WonderModsModule.WonderLog("Clear state hook");
-            Streaks.StreakManager.OnClearState();
-        }
-
-        private static void OnLoadState(Dictionary<Type, Dictionary<string, object>> dictionary, Level level)
-        {
-            WonderModsModule.WonderLog("Load state hook");
-            Streaks.StreakManager.OnLoadState();
-        }
-
-        private static void OnSaveState(Dictionary<Type, Dictionary<string, object>> dictionary, Level level)
-        {			
-            WonderModsModule.WonderLog("Save state hook");
-            Streaks.StreakManager.OnSaveState();
-        }
-
-
-
-        internal static void Unload() 
-        {
-            if (SaveLoadActionInstance != null)
-            {
-                SpeedrunToolInterop.SaveLoadExports.Unregister(SaveLoadActionInstance);
-            }
-        }
+    internal static void Unload() 
+    {
     }
 }

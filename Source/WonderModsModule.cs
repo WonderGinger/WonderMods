@@ -4,7 +4,7 @@ using Celeste.Mod.WonderMods.Streaks;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System;
-using System.Collections.Generic;
+using MonoMod.ModInterop;
 using System.IO;
 
 namespace Celeste.Mod.WonderMods
@@ -40,28 +40,15 @@ namespace Celeste.Mod.WonderMods
         {
             On.Monocle.Engine.Update += Engine_Update;
             Everest.Events.Level.OnLoadLevel += AddStreaksCounterEntity;
-            SpeedrunToolIntegration.Load();
+            typeof(RoomTimerIntegration).ModInterop();
+            typeof(SaveLoadIntegration).ModInterop();
+            SaveLoadIntegration.RegisterSaveLoadAction(StreakManager.OnSaveState, StreakManager.OnLoadState, StreakManager.OnClearState, StreakManager.OnBeforeSaveState, StreakManager.OnBeforeLoadState, null);
         }
 
         private void Engine_Update(On.Monocle.Engine.orig_Update orig, Engine self, GameTime gameTime)
         {
             orig(self, gameTime);
-            if (!Settings.Enabled) return;
-            if (Settings.KeyStreakToggle.Pressed)
-            {
-                switch (Settings.EnableStreaks)
-                {
-                    case StreakCounter.StreakCounterType.Off:
-                        Settings.EnableStreaks = StreakCounter.StreakCounterType.Auto;
-                        break;
-                    case StreakCounter.StreakCounterType.Auto:
-                        Settings.EnableStreaks = StreakCounter.StreakCounterType.Manual;
-                        break;
-                    case StreakCounter.StreakCounterType.Manual:
-                        Settings.EnableStreaks = StreakCounter.StreakCounterType.Off;
-                        break;
-                }
-            }
+            //if (!Settings.Enabled) return;
             if (Settings.KeyStreakIncrement.Pressed) StreakManager.ResetHotkey();
             if (Settings.KeyStreakReset.Pressed) StreakManager.IncrementHotkey();
         }
@@ -70,12 +57,12 @@ namespace Celeste.Mod.WonderMods
         {
             On.Monocle.Engine.Update -= Engine_Update;
             Everest.Events.Level.OnLoadLevel -= AddStreaksCounterEntity;
-            SpeedrunToolIntegration.Unload();
         }
 
         public override void CreateModMenuSection(TextMenu menu, bool inGame, FMOD.Studio.EventInstance snapshot)
 		{
-			base.CreateModMenuSection(menu, inGame, snapshot);
+            base.CreateModMenuSection(menu, inGame, snapshot);
+
 		}
         public static void WonderLog(string s)
         {

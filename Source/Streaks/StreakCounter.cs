@@ -37,7 +37,15 @@ public static class StreakCounter {
         }
         return Count;
     }
-    
+
+    public static int DecrementCount(int decrement = 1)
+    {
+        Count -= decrement;
+        if (Count < 0) Count = 0;
+        PopupMessageUtils.Show(string.Format("{0}: {1} ({2})", DialogIds.StreakCounterId.DialogClean(), Count, Best), null);
+        return Count;
+    }
+
     public static int GetCount() {
         return Count;
     }
