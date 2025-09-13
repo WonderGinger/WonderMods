@@ -43,7 +43,6 @@ namespace Celeste.Mod.WonderMods
             //Everest.Events.Level.OnLoadLevel += AddStreaksCounterEntity;
             typeof(RoomTimerIntegration).ModInterop();
             typeof(SaveLoadIntegration).ModInterop();
-            WonderLog("");
             SaveLoadInstance = SaveLoadIntegration.RegisterSaveLoadAction(StreakManager.OnSaveState, StreakManager.OnLoadState, StreakManager.OnClearState, StreakManager.OnBeforeSaveState, StreakManager.OnBeforeLoadState, null);
         }
 
@@ -51,8 +50,9 @@ namespace Celeste.Mod.WonderMods
         {
             orig(self, gameTime);
             //if (!Settings.Enabled) return;
-            if (Settings.KeyStreakIncrement.Pressed) StreakManager.ResetHotkey();
-            if (Settings.KeyStreakReset.Pressed) StreakManager.IncrementHotkey();
+            if (Settings.KeyStreakIncrement.Pressed) StreakManager.IncrementHotkey(); 
+            if (Settings.KeyStreakDecrement.Pressed) StreakManager.DecrementHotkey(); 
+            if (Settings.KeyStreakReset.Pressed) StreakManager.ResetHotkey();
         }
 
         public override void Unload()
