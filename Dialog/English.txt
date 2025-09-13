@@ -1,0 +1,17 @@
+Wonder_WonderSandbox_Sandbox= Sandbox
+Wonder_WonderSandbox_Sandbox_postcard=
+1. Purpose: demonstrate safe and                              consistent entry-level {#ff1144}all red berries{#} strats{n}
+2. Pay attention to the {#56405E}input display{#}              {n}
+3. Any% rooms are {#d95c04}not{#} the focus                    {n}
+4. Check description for more strat info           {n}
+
+# ================================== Hotkeys Submenu ==================================
+WM_HOTKEYS=             Hotkeys
+WM_HOTKEYS_DESCRIPTION= Binding multiple keys to a control will cause those keys to act as a keycombo
+
+# ================================== Hotkey Config ==================================
+WM_KEY_STREAK_INCREMENT=           Increment streak
+WM_KEY_STREAK_RESET=               Reset streak
+WM_STREAK_COUNTER_RESET=           Reset streak
+WM_STREAK_COUNTER=                 Streak
+WM_WONDER_MODS=					   Wonder Mods
