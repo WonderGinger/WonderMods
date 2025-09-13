@@ -18,6 +18,7 @@ namespace Celeste.Mod.WonderMods
         public override Type SessionType => typeof(WonderModsModuleSession);
         public static WonderModsModuleSession Session => (WonderModsModuleSession)Instance._Session;
         public static readonly string REPLAY_ROOT = Path.Combine(Everest.PathGame, "WonderModsRoot");
+        private object SaveLoadInstance = null;
 
         public WonderModsModule()
         {
@@ -42,7 +43,8 @@ namespace Celeste.Mod.WonderMods
             //Everest.Events.Level.OnLoadLevel += AddStreaksCounterEntity;
             typeof(RoomTimerIntegration).ModInterop();
             typeof(SaveLoadIntegration).ModInterop();
-            SaveLoadIntegration.RegisterSaveLoadAction(StreakManager.OnSaveState, StreakManager.OnLoadState, StreakManager.OnClearState, StreakManager.OnBeforeSaveState, StreakManager.OnBeforeLoadState, null);
+            WonderLog("");
+            SaveLoadInstance = SaveLoadIntegration.RegisterSaveLoadAction(StreakManager.OnSaveState, StreakManager.OnLoadState, StreakManager.OnClearState, StreakManager.OnBeforeSaveState, StreakManager.OnBeforeLoadState, null);
         }
 
         private void Engine_Update(On.Monocle.Engine.orig_Update orig, Engine self, GameTime gameTime)
@@ -56,6 +58,7 @@ namespace Celeste.Mod.WonderMods
         public override void Unload()
         {
             On.Monocle.Engine.Update -= Engine_Update;
+            SaveLoadIntegration.Unregister(SaveLoadInstance);
             //Everest.Events.Level.OnLoadLevel -= AddStreaksCounterEntity;
         }
 
