@@ -39,7 +39,7 @@ namespace Celeste.Mod.WonderMods
         public override void Load()
         {
             On.Monocle.Engine.Update += Engine_Update;
-            Everest.Events.Level.OnLoadLevel += AddStreaksCounterEntity;
+            //Everest.Events.Level.OnLoadLevel += AddStreaksCounterEntity;
             typeof(RoomTimerIntegration).ModInterop();
             typeof(SaveLoadIntegration).ModInterop();
             SaveLoadIntegration.RegisterSaveLoadAction(StreakManager.OnSaveState, StreakManager.OnLoadState, StreakManager.OnClearState, StreakManager.OnBeforeSaveState, StreakManager.OnBeforeLoadState, null);
@@ -56,7 +56,7 @@ namespace Celeste.Mod.WonderMods
         public override void Unload()
         {
             On.Monocle.Engine.Update -= Engine_Update;
-            Everest.Events.Level.OnLoadLevel -= AddStreaksCounterEntity;
+            //Everest.Events.Level.OnLoadLevel -= AddStreaksCounterEntity;
         }
 
         public override void CreateModMenuSection(TextMenu menu, bool inGame, FMOD.Studio.EventInstance snapshot)

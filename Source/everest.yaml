@@ -1,8 +1,0 @@
-- Name: WonderMods
-  Version: 0.1.0
-  DLL: WonderMods.dll
-  Dependencies:
-    - Name: Everest
-      Version: 1.5806
-    - Name: SpeedrunTool
-      Version: 3.26.3

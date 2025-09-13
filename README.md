@@ -1,2 +1,4 @@
 # WonderMods
-Replace with your mod's readme!# WonderMods
+
+## Streaks
+Automatically count streaks using the room timer
