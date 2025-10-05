@@ -11,7 +11,7 @@ namespace Celeste.Mod.WonderMods.Streaks
         }
         public override void Render()
         {
-            if (WonderModsModule.Settings.EnableStreaks == StreakCounter.StreakCounterType.Off) return;
+            if (WonderModsModule.Settings.EnableStreaks == StreakCounter.StreakCounterType.OFF) return;
             var scale = 0.5f;
             var fontSize = ActiveFont.LineHeight * scale;
             var x = 15f;

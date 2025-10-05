@@ -13,15 +13,13 @@ public static class StreakManager
 
     public static void OnSaveState(Dictionary<Type, Dictionary<string, object>> dictionary, Level level)
     {			
-        WonderModsModule.WonderLog("Save state hook");
         StreakCounter.ResetCount(false);
         StreakCounter.ResetBest(false);
     }
 
     public static void OnLoadState(Dictionary<Type, Dictionary<string, object>> dictionary, Level level)
     {
-        WonderModsModule.WonderLog("Load state hook");
-        if (StreakCounter.StreakCounterType.Off == WonderModsModuleSettings.Instance.EnableStreaks) {
+        if (StreakCounter.StreakCounterType.OFF == WonderModsModuleSettings.Instance.EnableStreaks) {
             StreakCounter.ResetCount(false);
             StreakCounter.ResetBest(false);
             return;
@@ -44,24 +42,21 @@ public static class StreakManager
 
     public static void OnClearState()
     {
-        WonderModsModule.WonderLog("Clear state hook");
         StreakCounter.ResetCount(false);
         StreakCounter.ResetBest(false);
     }
 
     public static void OnBeforeSaveState(Level level)
     {
-        WonderModsModule.WonderLog("Before save state hook");
         StreakCounter.ResetCount(false);
     }
 
     public static void OnBeforeLoadState(Level level)
     {
-        WonderModsModule.WonderLog("Before load state hook");
         TimerStarted = RoomTimerIntegration.GetRoomTime() != 0;
         if (TimerStarted && !RoomTimerIntegration.RoomTimerIsCompleted())
         {
-            ShouldResetCount = WonderModsModuleSettings.Instance.EnableStreaks == StreakCounter.StreakCounterType.Auto;
+            ShouldResetCount = WonderModsModuleSettings.Instance.EnableStreaks == StreakCounter.StreakCounterType.AUTO;
         }
         if (ManuallyResetFlag)
         {

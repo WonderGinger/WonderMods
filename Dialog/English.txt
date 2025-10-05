@@ -5,13 +5,27 @@ Wonder_WonderSandbox_Sandbox_postcard=
 3. Any% rooms are {#d95c04}not{#} the focus                    {n}
 4. Check description for more strat info           {n}
 
+#POSTCARD_AREA_1=
+#POSTCARD_AREA_2=
+#1. Purpose: demonstrate safe and                              consistent entry-level {#ff1144}all red berries{#} strats{n}
+#2. Pay attention to the {#56405E}input display{#}              {n}
+#3. Any% rooms are {#d95c04}not{#} the focus                    {n}
+#4. Check description for more strat info           {n}
+
 # ================================== Mod Menu        ==================================
-WM_WONDER_MODS=					    Wonder Mods
-WM_ENABLE_STREAKS=				    Streaks
+WM_WONDER_MODS=                                   Wonder Mods
+WM_ENABLE_STREAKS=                                Streaks
+WM_ENABLE_RETURN_TO_MAP_SPLIT_BUTTON=             Return To Map Split Button
 
 # ================================== Streaks Submenu ==================================
 WM_STREAK_COUNTER_RESET=            Reset streak
 WM_STREAK_COUNTER=                  Streak
+
+
+# ================================== Return To Map Timer Button / Menu ================
+WM_RETURN_TO_MAP_SPLIT_BUTTON=                    Return To Map Split
+WM_RETURN_TO_MAP_SPLIT_BUTTON_DESC=               Unpause and split room timer after 31 frames
+WM_RETURN_TO_MAP_SPLIT_MENU_HEADER=               RETURN TO MAP SPLIT?
 
 # ================================== Hotkeys Submenu ==================================
 WM_HOTKEYS=            			    Hotkeys

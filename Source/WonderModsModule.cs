@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.WonderMods.Integration;
+using Celeste.Mod.WonderMods.ReturnToMapSplitButton;
 using Celeste.Mod.WonderMods.Streaks;
 
 using Microsoft.Xna.Framework;
@@ -6,6 +7,7 @@ using Monocle;
 using System;
 using MonoMod.ModInterop;
 using System.IO;
+using static Celeste.TextMenuExt;
 
 namespace Celeste.Mod.WonderMods
 {
@@ -44,6 +46,7 @@ namespace Celeste.Mod.WonderMods
             typeof(RoomTimerIntegration).ModInterop();
             typeof(SaveLoadIntegration).ModInterop();
             SaveLoadInstance = SaveLoadIntegration.RegisterSaveLoadAction(StreakManager.OnSaveState, StreakManager.OnLoadState, StreakManager.OnClearState, StreakManager.OnBeforeSaveState, StreakManager.OnBeforeLoadState, null);
+            Everest.Events.Level.OnCreatePauseMenuButtons += Level_OnCreatePauseMenuButtons;
         }
 
         private void Engine_Update(On.Monocle.Engine.orig_Update orig, Engine self, GameTime gameTime)
@@ -53,12 +56,14 @@ namespace Celeste.Mod.WonderMods
             if (Settings.KeyStreakIncrement.Pressed) StreakManager.IncrementHotkey(); 
             if (Settings.KeyStreakDecrement.Pressed) StreakManager.DecrementHotkey(); 
             if (Settings.KeyStreakReset.Pressed) StreakManager.ResetHotkey();
+            ReturnToMapTimer.Update();
         }
 
         public override void Unload()
         {
             On.Monocle.Engine.Update -= Engine_Update;
             SaveLoadIntegration.Unregister(SaveLoadInstance);
+            Everest.Events.Level.OnCreatePauseMenuButtons -= Level_OnCreatePauseMenuButtons;
             //Everest.Events.Level.OnLoadLevel -= AddStreaksCounterEntity;
         }
 
@@ -70,6 +75,24 @@ namespace Celeste.Mod.WonderMods
         public static void WonderLog(string s)
         {
             Logger.Log(LogLevel.Debug, nameof(WonderModsModule), s);
+        }
+
+        private void Level_OnCreatePauseMenuButtons(Level level, TextMenu menu, bool minimal)
+        {
+            if (!Settings.ShowReturnToMapSplitButton) return;
+            MainMenuReturnToMapSplitButton button = new(Dialog.Get(DialogIds.ReturnToMapSplitButtonId));
+            button.Pressed(() =>
+            {
+                button.PressedHandler(level, menu);
+            });
+            EaseInSubHeaderExt descriptionText = new(Dialog.Get(DialogIds.ReturnToMapSplitButtonDescId), false, menu, null)
+            {
+                HeightExtra = 0f
+            };
+            menu.Add(button);
+            menu.Add(descriptionText);
+            button.OnEnter = () => descriptionText.FadeVisible = true;
+            button.OnLeave = () => descriptionText.FadeVisible = false;
         }
     }
 }

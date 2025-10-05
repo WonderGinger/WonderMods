@@ -9,13 +9,19 @@ public static class StreakCounter {
     private static DateTime LastResetTime { get; set; } = DateTime.Now;
 
     public enum StreakCounterType {
-        Off,
-        Auto,
-        Manual
+        OFF,
+        AUTO,
+        MANUAL
     }
+
+    private static void PopupMessage(string message) {
+        PopupMessageUtils.Show(message, null);
+        WonderModsModule.WonderLog(message);
+    }
+
     public static void ResetCount(bool displayPopupMessage) {
         if ((0 != Count) && displayPopupMessage) {
-            PopupMessageUtils.Show(string.Format("{0} ({1})", DialogIds.StreakCounterResetId.DialogClean(), Count), null);
+            PopupMessage(string.Format("{0} ({1})", DialogIds.StreakCounterResetId.DialogClean(), Count));
         }
         Count = 0;
     }
@@ -29,10 +35,10 @@ public static class StreakCounter {
         Count += increment; 
         if (Count >= Best) {
             Best = Count;
-            PopupMessageUtils.Show(string.Format("{0}: {1}", DialogIds.StreakCounterId.DialogClean(), Count), null);
+            PopupMessage(string.Format("{0}: {1}", DialogIds.StreakCounterId.DialogClean(), Count));
         }
         else {
-            PopupMessageUtils.Show(string.Format("{0}: {1} ({2})", DialogIds.StreakCounterId.DialogClean(), Count, Best), null);
+            PopupMessage(string.Format("{0}: {1} ({2})", DialogIds.StreakCounterId.DialogClean(), Count, Best));
         }
         return Count;
     }
@@ -41,7 +47,7 @@ public static class StreakCounter {
     {
         Count -= decrement;
         if (Count < 0) Count = 0;
-        PopupMessageUtils.Show(string.Format("{0}: {1} ({2})", DialogIds.StreakCounterId.DialogClean(), Count, Best), null);
+        PopupMessage(string.Format("{0}: {1} ({2})", DialogIds.StreakCounterId.DialogClean(), Count, Best));
         return Count;
     }
 

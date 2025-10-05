@@ -16,10 +16,15 @@ public class WonderModsModuleSettings : EverestModuleSettings
     #region Streaks
 
     [SettingName(DialogIds.EnableStreaksId)]
-    public StreakCounter.StreakCounterType EnableStreaks { get; set; } = StreakCounter.StreakCounterType.Auto;
+    public StreakCounter.StreakCounterType EnableStreaks { get; set; } = StreakCounter.StreakCounterType.AUTO;
     //[SettingName(DialogIds.AlwaysShowStreakCounterId)]
     //public bool AlwaysShowStreakCounter { get; set; } = false;
 
+    #endregion
+
+    #region Return to Map Timer Button
+    [SettingName(DialogIds.EnableReturnToMapSplitButtonId)]
+    public bool ShowReturnToMapSplitButton { get; set; } = true;
     #endregion
 
     #region Hotkey
