@@ -16,5 +16,7 @@ public static class DialogIds {
     public const string KeyStreakResetId = "WM_KEY_STREAK_RESET";
     public const string KeyStreakIncrementId = "WM_KEY_STREAK_INCREMENT";
     public const string KeyStreakDecrementId = "WM_KEY_STREAK_DECREMENT";
+    public const string KeyStreakUndoId = "WM_KEY_STREAK_UNDO";
+    public const string KeyStreakExportId = "WM_KEY_STREAK_EXPORT";
 }
 

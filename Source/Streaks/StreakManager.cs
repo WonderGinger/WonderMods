@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Celeste.Mod.WonderMods.Integration;
+using Monocle;
 
 namespace Celeste.Mod.WonderMods.Streaks;
 
@@ -10,18 +11,28 @@ public static class StreakManager
     private static bool ShouldSkipIncrement { get; set; } = false;
     private static bool ShouldResetCount { get; set; } = false;
     private static bool TimerStarted { get; set; } = false;
+    public static long LastRoomTime { get; set; } = 0;
+
+    public static void Update()
+    {
+        if (RoomTimerIntegration.RoomTimerIsCompleted() && LastRoomTime == 0)
+        {
+            LastRoomTime = RoomTimerIntegration.GetRoomTime() - 170000; 
+            WonderModsModule.WonderLog($"Update setting last room time {LastRoomTime}");
+        }
+    }
 
     public static void OnSaveState(Dictionary<Type, Dictionary<string, object>> dictionary, Level level)
     {			
-        StreakCounter.ResetCount(false);
-        StreakCounter.ResetBest(false);
+        LastRoomTime = 0;
+        StreakCounter.Reset(false);
     }
 
     public static void OnLoadState(Dictionary<Type, Dictionary<string, object>> dictionary, Level level)
     {
-        if (StreakCounter.StreakCounterType.OFF == WonderModsModuleSettings.Instance.EnableStreaks) {
-            StreakCounter.ResetCount(false);
-            StreakCounter.ResetBest(false);
+        if (StreakCounter.StreakCounterType.OFF == WonderModsModuleSettings.Instance.EnableStreaks)
+        {
+            StreakCounter.Reset(false);
             return;
         }
 
@@ -37,13 +48,13 @@ public static class StreakManager
         else if (TimerStarted)
         {
             StreakCounter.IncrementCount();
+            LastRoomTime = 0;
         }
     }
 
     public static void OnClearState()
     {
-        StreakCounter.ResetCount(false);
-        StreakCounter.ResetBest(false);
+        StreakCounter.Reset(false);
     }
 
     public static void OnBeforeSaveState(Level level)
@@ -78,5 +89,14 @@ public static class StreakManager
 
     public static void DecrementHotkey() {
         StreakCounter.DecrementCount();
+    }
+
+    public static void UndoHotkey() {
+        StreakCounter.UndoCount();
+    }
+
+    public static void ExportHotkey()
+    {
+        StreakCounter.ExportStreakTimes();
     }
 }

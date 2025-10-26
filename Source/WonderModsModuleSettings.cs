@@ -33,15 +33,21 @@ public class WonderModsModuleSettings : EverestModuleSettings
     [DefaultButtonBinding(0, Keys.OemPlus)]
     public ButtonBinding KeyStreakIncrement { get; set; } = new(0, Keys.OemPlus);
 
-    [SettingName(DialogIds.KeyStreakDecrementId)]
-    [DefaultButtonBinding(0, Keys.OemMinus)]
-    public ButtonBinding KeyStreakDecrement { get; set; } = new(0, Keys.OemMinus);
+    //[SettingName(DialogIds.KeyStreakDecrementId)]
+    //[DefaultButtonBinding(0, Keys.OemMinus)]
+    //public ButtonBinding KeyStreakDecrement { get; set; } = new(0, Keys.OemMinus);
 
     [SettingName(DialogIds.KeyStreakResetId)]
     [DefaultButtonBinding(0, Keys.Delete)]
     public ButtonBinding KeyStreakReset { get; set; } = new(0, Keys.Delete);
 
+    [SettingName(DialogIds.KeyStreakUndoId)]
+    [DefaultButtonBinding(0, Keys.None)]
+    public ButtonBinding KeyStreakUndo { get; set; } = new(0, Keys.None);
+
+    [SettingName(DialogIds.KeyStreakExportId)]
+    [DefaultButtonBinding(0, Keys.None)]
+    public ButtonBinding KeyStreakExport { get; set; } = new(0, Keys.None);
+
     #endregion
-
-
 }

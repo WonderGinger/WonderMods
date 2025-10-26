@@ -1,6 +1,7 @@
 ﻿using Celeste.Mod.WonderMods.Integration;
 using Celeste.Mod.WonderMods.ReturnToMapSplitButton;
 using Celeste.Mod.WonderMods.Streaks;
+using Celeste.Mod.SpeedrunTool.Message;
 
 using Microsoft.Xna.Framework;
 using Monocle;
@@ -53,10 +54,17 @@ namespace Celeste.Mod.WonderMods
         {
             orig(self, gameTime);
             //if (!Settings.Enabled) return;
-            if (Settings.KeyStreakIncrement.Pressed) StreakManager.IncrementHotkey(); 
-            if (Settings.KeyStreakDecrement.Pressed) StreakManager.DecrementHotkey(); 
-            if (Settings.KeyStreakReset.Pressed) StreakManager.ResetHotkey();
             ReturnToMapTimer.Update();
+            if ((Settings.EnableStreaks != StreakCounter.StreakCounterType.OFF)
+                && (Engine.Scene is Level level) && !(level.Paused))
+            {
+                if (Settings.KeyStreakIncrement.Pressed) StreakManager.IncrementHotkey();
+                //if (Settings.KeyStreakDecrement.Pressed) StreakManager.DecrementHotkey(); 
+                if (Settings.KeyStreakReset.Pressed) StreakManager.ResetHotkey();
+                if (Settings.KeyStreakUndo.Pressed) StreakManager.UndoHotkey();
+                if (Settings.KeyStreakExport.Pressed) StreakManager.ExportHotkey();
+                StreakManager.Update();
+            }
         }
 
         public override void Unload()
@@ -75,6 +83,11 @@ namespace Celeste.Mod.WonderMods
         public static void WonderLog(string s)
         {
             Logger.Log(LogLevel.Debug, nameof(WonderModsModule), s);
+        }
+
+        public static void PopupMessage(string message) {
+            PopupMessageUtils.Show(message, null);
+            WonderLog(message);
         }
 
         private void Level_OnCreatePauseMenuButtons(Level level, TextMenu menu, bool minimal)

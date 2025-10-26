@@ -32,7 +32,9 @@ WM_HOTKEYS=            			    Hotkeys
 
 # ================================== Hotkey Config   ==================================
 WM_KEY_STREAK_INCREMENT=            Increment streak
-WM_KEY_STREAK_DECREMENT=		    Decrement streak
+WM_KEY_STREAK_DECREMENT=            Decrement streak
+WM_KEY_STREAK_UNDO=                 Undo streak change
 WM_KEY_STREAK_RESET=                Reset streak
+WM_KEY_STREAK_EXPORT=               Export streak to clipboard
 
 
